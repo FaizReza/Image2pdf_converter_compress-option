@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PDF Size Preview</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 32px; max-width: 920px; }
+      .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 18px; }
+      .muted { color: #6b7280; font-size: 14px; }
+      .error { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 10px 12px; border-radius: 10px; margin: 12px 0; }
+      table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+      th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #e5e7eb; }
+      .pill { display:inline-block; padding: 3px 8px; border-radius: 999px; background:#f3f4f6; font-size: 12px; }
+      a.btn { display:inline-block; background:#111827; color:white; text-decoration:none; padding: 8px 12px; border-radius:10px; }
+      a.btn.secondary { background:#374151; }
+      code { background:#f3f4f6; padding: 2px 6px; border-radius: 6px; }
+    </style>
+  </head>
+  <body>
+    <h2>PDF size preview</h2>
+    <p class="muted">
+      Input images total: <b>{{ input_total_h }}</b> • Output filename: <code>{{ outname }}</code>
+    </p>
+
+    <div class="card">
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+
+      <table>
+        <thead>
+          <tr>
+            <th>Mode</th>
+            <th>Estimated compression</th>
+            <th>PDF size</th>
+            <th>Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for v in variants %}
+          <tr>
+            <td><b>{{ v.label }}</b></td>
+            <td><span class="pill">{{ v.note }}</span></td>
+            <td>{{ v.size_h }}</td>
+            <td>
+              <a class="btn" href="/download/{{ token }}/{{ v.key }}?name={{ outname | urlencode }}">Download</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <p class="muted" style="margin-top:12px;">
+        Notes:
+        <br />- “No compression” embeds original JPEG/PNG bytes where possible (best quality).
+        <br />- HEIC/TIFF/WEBP/BMP are converted to PNG (lossless) for the no-compression mode.
+      </p>
+
+      <p style="margin-top:14px;">
+        <a class="btn secondary" href="/">Back</a>
+      </p>
+    </div>
+  </body>
+</html>
