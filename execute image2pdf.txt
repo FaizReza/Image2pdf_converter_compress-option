@@ -1,1 +1,0 @@
-& C:/Users/faizr/AppData/Local/Microsoft/WindowsApps/python3.10.exe "c:/Users/faizr/REZA/Documents_Windows/02 Python Scripts/Fun_Projects/Image to PDF/image2pdf.py"
